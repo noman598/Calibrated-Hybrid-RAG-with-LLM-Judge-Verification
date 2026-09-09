@@ -1,0 +1,7 @@
+renv/
+.env
+__pycache__/
+*.pyc
+data/raw_pdfs/
+logs/
+.ipynb_checkpoints/
