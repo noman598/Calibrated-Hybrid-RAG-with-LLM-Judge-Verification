@@ -97,6 +97,36 @@ if __name__ == "__main__":
         reranked = rerank(query, fused, chunk_lookup, top_k=K)
         return [r["chunk_id"] for r in reranked]
 
+    def find_rank(retrieved_ids, relevant_ids):
+        for rank, cid in enumerate(retrieved_ids, start=1):
+            if cid in relevant_ids:
+                return rank
+        return None  # not found in top-k at all
+    
+    #     print("=== Per-query rank of relevant chunk (None = not in top-5) ===\n")
+    for example in gold_set:
+        query = example["query"]
+        relevant_ids = set(example["relevant_chunk_ids"])
+
+        bm25_ids = bm25_only(query)
+        dense_ids = dense_only(query)
+        rrf_ids = rrf_fused(query)
+        reranked_ids = rrf_reranked(query)
+
+        print(f"Query: {query}")
+        # print(f"  Relevant: {relevant_ids}")
+        # print(f"  BM25 rank:     {find_rank(bm25_ids, relevant_ids)} ")
+        # print(f"  Dense rank:    {find_rank(dense_ids, relevant_ids)} ")
+        # print(f"  RRF rank:      {find_rank(rrf_ids, relevant_ids)} ")
+        # print(f"  Reranked rank: {find_rank(reranked_ids, relevant_ids)}")
+        # print()
+        print(f"  BM25 rank:     {find_rank(bm25_ids, relevant_ids)}  | ids: {bm25_ids}")
+        print(f"  Dense rank:    {find_rank(dense_ids, relevant_ids)}  | ids: {dense_ids}")
+        print(f"  RRF rank:      {find_rank(rrf_ids, relevant_ids)}  | ids: {rrf_ids}")
+        print(f"  Reranked rank: {find_rank(reranked_ids, relevant_ids)}  | ids: {reranked_ids}")
+        print()
+
+
     print("=== Retrieval Evaluation (k=5) ===\n")
     for name, fn in [
         ("BM25 only", bm25_only),

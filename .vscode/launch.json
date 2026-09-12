@@ -8,7 +8,7 @@
             "name": "RAG",
             "type": "debugpy",
             "request": "launch",
-            "module": "src.evaluation",
+            "module": "src.calibrated",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal"
         }

@@ -4,3 +4,4 @@ spacy
 chromadb
 google-genai
 sentence-transformers
+groq

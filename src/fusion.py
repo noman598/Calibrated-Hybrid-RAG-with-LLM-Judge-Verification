@@ -64,9 +64,9 @@ if __name__ == "__main__":
     chunk_ids, chunk_texts, chunk_lookup = load_corpus_from_chroma(collection)
     bm25 = BM25(chunks=chunk_texts, k1=1.5, b=0.75)   # built once from Chroma's stored texts
 
-    query = "multi-head attention"
+    query = "Why are Transformers significantly faster and easier to parallelize during training compared to traditional RNNs or LSTMs?"
     fused_results = fuse_retrieval(query, bm25, chunk_ids, collection, embed_sentences, top_k_per_retriever=20)
 
     print(f"Fused RRF results for: '{query}'\n")
     for chunk_id, score in fused_results[:5]:
-        print(f"RRF score={score:.4f} | {chunk_lookup[chunk_id][:100]}")
+        print(f"RRF score={score:.4f} {chunk_id}| {chunk_lookup[chunk_id][:100]}")
