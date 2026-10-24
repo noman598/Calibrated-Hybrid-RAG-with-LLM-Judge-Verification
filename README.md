@@ -29,7 +29,7 @@ this system mathematically fuses different search methods to find the best conte
 * Cross-encoder reranking
 * Claim-level faithfulness verification
   
-The system therefore contains two major AI paths:
+# 🏗️ High-Level Architecture
 
 ```text
                     USER QUERY
